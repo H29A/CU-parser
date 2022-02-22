@@ -1,0 +1,27 @@
+{
+  "name": "cu-parser",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start:parse": "cross-env NODE_ENV=production node -r dotenv/config --experimental-specifier-resolution=node --max-old-space-size=8192 index.js",
+    "start:debug": "cross-env NODE_ENV=development node -r dotenv/config --experimental-specifier-resolution=node --max-old-space-size=8192 index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "lodash": "^4.17.21",
+    "moment": "^2.29.1",
+    "npm": "^8.5.1",
+    "puppeteer": "^13.3.2",
+    "puppeteer-extra": "^3.2.3",
+    "puppeteer-extra-plugin-stealth": "^2.9.0",
+    "telegraf": "^4.7.0",
+    "winston": "^3.6.0"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "dotenv": "^16.0.0"
+  }
+}

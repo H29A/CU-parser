@@ -1,0 +1,59 @@
+{
+  "endpoint": "https://www.computeruniverse.net",
+  "lang": [
+    {
+      "label": "ru",
+      "fullPath": "https://www.computeruniverse.net/ru",
+      "paths": {
+        "catalogues": {
+          "label": "c",
+          "fullPath": "https://www.computeruniverse.net/ru/c",
+          "categories": {
+            "hardware": {
+              "label": "apparatnoe-obespechenie-i-komponenty",
+              "fullPath": "https://www.computeruniverse.net/ru/c/apparatnoe-obespechenie-i-komponenty",
+              "childPaths": [
+                {
+                  "filename": "PC-COMPONENTS",
+                  "fullPath": "https://www.computeruniverse.net/ru/c/apparatnoe-obespechenie-i-komponenty/komplektuyushhie-dlya-pk"
+                },
+                {
+                  "filename": "ROM",
+                  "fullPath": "https://www.computeruniverse.net/ru/c/apparatnoe-obespechenie-i-komponenty/zhestkie-diski"
+                },
+                {
+                  "filename": "CONTROLLERS",
+                  "fullPath": "https://www.computeruniverse.net/ru/c/apparatnoe-obespechenie-i-komponenty/kontrollery"
+                },
+                {
+                  "filename": "NETWORK-HARDWARE",
+                  "fullPath": "https://www.computeruniverse.net/ru/c/apparatnoe-obespechenie-i-komponenty/setevoe-apparatnoe-obespechenie"
+                },
+                {
+                  "filename": "PC-CASES",
+                  "fullPath": "https://www.computeruniverse.net/ru/c/apparatnoe-obespechenie-i-komponenty/korpusa"
+                },
+                {
+                  "filename": "DRIVES",
+                  "fullPath": "https://www.computeruniverse.net/ru/c/apparatnoe-obespechenie-i-komponenty/privody"
+                },
+                {
+                  "filename": "COOLING",
+                  "fullPath": "https://www.computeruniverse.net/ru/c/apparatnoe-obespechenie-i-komponenty/sistemy-ohlazhdeniya"
+                },
+                {
+                  "filename": "CABLE",
+                  "fullPath": "https://www.computeruniverse.net/ru/c/apparatnoe-obespechenie-i-komponenty/kabeli"
+                },
+                {
+                  "filename": "PCI-GRAPHIC-CARDS",
+                  "fullPath": "https://www.computeruniverse.net/ru/c/apparatnoe-obespechenie-i-komponenty/videokarty-pci-express"
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  ]
+}
