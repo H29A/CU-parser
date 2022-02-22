@@ -4,20 +4,19 @@ import _ from 'lodash';
 import { Telegraf } from 'telegraf';
 import moment from 'moment';
 
-import { writeProductsData, readProductsData, getChronicleFolder } from './utils/utils';
+import { writeProductsData, readProductsData, getChronicleProductsFolder } from './utils/utils';
 import {
+    LAUNCH_OPTIONS,
     BASE_OUTPUT_PATH,
     DEFAULT_URL,
     DEFAULT_FILENAME,
     DEFAULT_CHARSET,
     DEFAULT_REFRESH_DATA_INTERVAL,
     DEFAULT_PARSE_INTERVAL,
-    IS_DEVELOPMENT,
-    DEVELOPMENT_LAUNCH_OPTIONS,
-    PRODUCTION_LAUNCH_OPTIONS,
+    MAX_INT_VALUE,
     DEFAULT_DATE_FORMAT,
     CU_ENDPOINT,
-
+    SIZES
 } from './consts';
 
 import CU_MAP from './maps/cu-map';
@@ -26,8 +25,6 @@ puppeteer.use(StealthPlugin());  // Add stealth plugin and use defaults (all eva
 
 const MAP = _.find(CU_MAP.lang, { label: 'ru' });
 const BASE_PATH = MAP.paths.catalogues.categories.hardware.childPaths;
-
-const LAUNCH_OPTIONS = IS_DEVELOPMENT ? DEVELOPMENT_LAUNCH_OPTIONS : PRODUCTION_LAUNCH_OPTIONS;
 
 const filteredDataFromProductsArray = (data) => {
     return data.reduce((acc, item) => {
@@ -53,7 +50,7 @@ const filteredDataFromProductsArray = (data) => {
 const syncProductData = async (browser, options = {}) => {
     const {
         url = DEFAULT_URL,
-        folder = BASE_OUTPUT_PATH,
+        folder = BASE_OUTPUT_PATH.PRODUCTS.RU,
         filename = DEFAULT_FILENAME,
         charset = DEFAULT_CHARSET
     } = options;
@@ -61,19 +58,21 @@ const syncProductData = async (browser, options = {}) => {
     const page = await browser.newPage();
 
     await page._client.send('Network.enable', {
-        maxResourceBufferSize: 1024 * 1024 * 100, // 100 MiB
-        maxTotalBufferSize: 1024 * 1024 * 200, // 200 MiB
+        maxResourceBufferSize: SIZES._100MiB,
+        maxTotalBufferSize: SIZES._200MiB
     })
 
     await page.setDefaultNavigationTimeout(0);
+
+    const SUBSTITUTION_HITS_VALUE = MAX_INT_VALUE.toString();
 
     await page.goto(url, { waitUntil: 'networkidle0' });
     const $hitsSelector = await page.$('select.ais-HitsPerPage-select');
     await $hitsSelector.$eval(
         'option.ais-HitsPerPage-option[value="60"]',
-        el => el.value = '2147483647'
-    );
-    await $hitsSelector.select('2147483647');
+        (el, value) => el.value = value
+    , SUBSTITUTION_HITS_VALUE);
+    await $hitsSelector.select(SUBSTITUTION_HITS_VALUE);
 
     const response = await page.waitForResponse(response => response.url().includes('search'));
     const data = await response.json();
@@ -92,7 +91,7 @@ const syncProductData = async (browser, options = {}) => {
             setInterval(async () => {
                 await syncProductData(browser, {
                     url: child.fullPath,
-                    folder: getChronicleFolder(child.filename),
+                    folder: getChronicleProductsFolder(child.filename),
                     filename: child.filename,
                 });
             }, DEFAULT_REFRESH_DATA_INTERVAL);

@@ -5,13 +5,13 @@ import moment from 'moment';
 import { BASE_OUTPUT_PATH } from '../consts';
 import { logger } from './logger';
 
-const writeFileSyncRecursive = (filename, content, charset) => {
+const writeFileSyncRecursive = (folder, filename, content, charset) => {
     logger.debug(`Trying to write ${filename} (${charset})...`);
-    const folders = filename.split(path.sep).slice(0, -1);
+    const folders = folder.split(path.sep).slice(0, -1);
 
     try {
         if (folders.length) {
-            logger.debug(`Checking existing ${filename}...`);
+            logger.debug(`Checking existing ${folder}...`);
             folders.reduce((last, folder) => {
                 const folderPath = last ? last + path.sep + folder : folder
                 if (!fs.existsSync(folderPath)) {
@@ -24,20 +24,25 @@ const writeFileSyncRecursive = (filename, content, charset) => {
                 return folderPath;
             })
         }
-        fs.writeFileSync(filename, content, charset);
+        fs.writeFileSync(folder, content, charset);
         logger.info(`${filename} was successfully written!`);
     } catch (err) {
-        logger.error(err);
+        logger.error(err.message);
         throw Error(err);
     }
 };
 
+const writeAnyData = (path, filename, data, charset) =>  {
+    const resultPath = resolve(path, filename);
+    writeFileSyncRecursive(resultPath, filename, data, charset);
+}
 
 export const writeProductsData = (path, filename, data, charset) => {
-    const markedName = filename => `${filename}-${moment().format('DD.MM.YYYY')}`
-    const pathToFile = resolve(path, markedName(filename));
-    writeFileSyncRecursive(pathToFile, data, charset);
+    const markedFilename = `${filename}-${moment().format('DD.MM.YYYY')}.json`;
+    writeAnyData(path, markedFilename, data, charset);
 };
+
+export const writeCategoryData = (path, filename, data, charset) => writeAnyData(path, `${filename}.json`, data, charset);
 
 export const readProductsData = (path, charset) => {
     logger.debug(`Trying to read ${path} (${charset})...`);
@@ -52,6 +57,10 @@ export const readProductsData = (path, charset) => {
     }
 }
 
-export const getChronicleFolder = (filename) => {
-    return resolve(BASE_OUTPUT_PATH, filename);
+export const getChronicleProductsFolder = (filename) => {
+    return resolve(BASE_OUTPUT_PATH.PRODUCTS.RU, filename);
+};
+
+export const getChronicleCategoriesFolder = (filename) => {
+    return resolve(BASE_OUTPUT_PATH.CATEGORIES.RU, filename);
 };
