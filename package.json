@@ -8,7 +8,9 @@
     "parse:products": "cross-env NODE_ENV=production node -r dotenv/config --experimental-specifier-resolution=node --max-old-space-size=8192 parseProducts.js",
     "parse:products-debug": "cross-env NODE_ENV=development node -r dotenv/config --experimental-specifier-resolution=node --max-old-space-size=8192 parseProducts.js",
     "parse:categories": "cross-env NODE_ENV=production node -r dotenv/config --experimental-specifier-resolution=node --max-old-space-size=8192 parseCategories.js",
-    "parse:categories-debug": "cross-env NODE_ENV=development node -r dotenv/config --experimental-specifier-resolution=node --max-old-space-size=8192 parseCategories.js"
+    "parse:categories-debug": "cross-env NODE_ENV=development node -r dotenv/config --experimental-specifier-resolution=node --max-old-space-size=8192 parseCategories.js",
+    "start:debug": "cross-env NODE_ENV=development node -r dotenv/config --experimental-specifier-resolution=node --max-old-space-size=8192 index.js",
+    "start": "cross-env NODE_ENV=production node -r dotenv/config --experimental-specifier-resolution=node --max-old-space-size=8192 index.js"
   },
   "author": "",
   "license": "ISC",
