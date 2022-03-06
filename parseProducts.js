@@ -62,7 +62,7 @@ const getCategoryJSON = async (puppeteer, launchOptions, categoryURL) => {
     } catch (err) {
         logger.error(err.message);
         logger.info(`Failed while trying get ${categoryURL} JSON, repeating...`);
-        await parseProductsData(puppeteer, launchOptions, categoryURL);
+        await getCategoryJSON(puppeteer, launchOptions, categoryURL);
     }
 };
 
@@ -78,24 +78,3 @@ const spoofHitsCount = async page => {
     await $hitsSelector.select(SUBSTITUTION_HITS_COUNT);
     logger.debug(`Hits successfully spoofed to ${SUBSTITUTION_HITS_COUNT}`);
 };
-
-/*const filteredDataFromProductsArray = (data) => {
-    return data.reduce((acc, item) => {
-        acc.push({
-            productid: item.productid,
-            sku: item.sku,
-            name: item.name,
-            manufacturer: item.manufacturer,
-            deliverydatenow: item.deliverydatenow,
-            url: item.url,
-            image_url: item.image_url,
-            image_url_set: item.image_url_set,
-            canPickupInStore: item.canPickupInStore,
-            relevant_availability: item.relevant_availability,
-            dateexpected: item.dateexpected,
-            publish_time: item.publish_time,
-            price_ag: item.price_ag
-        });
-        return acc;
-    }, []);
-};*/

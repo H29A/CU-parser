@@ -50,10 +50,11 @@ const readAnyData = (path, filename, charset = DEFAULT_CHARSET) => {
     }
 };
 
+export const getDateMark = () => moment().format('DD.MM.YYYY');
 export const getCleanedName = filename => filename.replace(/(\.\w+)$/, '');
 const markProductsFilename = filename => {
     const filenameWithoutExtension = getCleanedName(filename);
-    return `${filenameWithoutExtension}-${moment().format('DD.MM.YYYY')}.json`;
+    return `${filenameWithoutExtension}-${getDateMark()}.json`;
 }
 export const readProductsData = (path, filename, charset) => readAnyData(path, filename, charset);
 export const writeProductsData = (path, filename, data, charset) => {

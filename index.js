@@ -6,7 +6,7 @@ import { parseCategoriesData } from './parseCategories';
 import { parseProductsData } from './parseProducts';
 
 import { LAUNCH_OPTIONS, CU_RU_ENDPOINT, BASE_OUTPUT_PATH, REGEX } from './consts';
-import { getAllCategoryFilenames, readCategoriesData, getCleanedName } from './utils/utils';
+import { getAllCategoryFilenames, readCategoriesData, getCleanedName, getDateMark } from './utils/utils';
 import { logger } from './utils/logger';
 
 puppeteer.use(StealthPlugin());  // Add stealth plugin and use defaults (all evasion techniques)
@@ -26,7 +26,7 @@ const iterateCategoryFiles = async (categoryFilenamesArray) => {
         for (const subcategory of category) {
             logger.debug(`Found "${subcategory.Name}", started recursive processing`);
             const categoryOutputPath = getCleanedName(
-                resolve(BASE_OUTPUT_PATH.PRODUCTS.RU, filename)
+                resolve(BASE_OUTPUT_PATH.PRODUCTS.RU, getDateMark(), filename)
             );
             const subfilename = subcategory.SeName.match(REGEX.LAST_AFTER_SLASH).pop();
             await parseProductsData(subcategory, categoryOutputPath, subfilename);

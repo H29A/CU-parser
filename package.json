@@ -10,13 +10,16 @@
     "parse:categories": "cross-env NODE_ENV=production node -r dotenv/config --experimental-specifier-resolution=node --max-old-space-size=8192 parseCategories.js",
     "parse:categories-debug": "cross-env NODE_ENV=development node -r dotenv/config --experimental-specifier-resolution=node --max-old-space-size=8192 parseCategories.js",
     "start:debug": "cross-env NODE_ENV=development node -r dotenv/config --experimental-specifier-resolution=node --max-old-space-size=8192 index.js",
-    "start": "cross-env NODE_ENV=production node -r dotenv/config --experimental-specifier-resolution=node --max-old-space-size=8192 index.js"
+    "start": "cross-env NODE_ENV=production node -r dotenv/config --experimental-specifier-resolution=node --max-old-space-size=8192 index.js",
+    "connect:db": "cross-env NODE_ENV=production node -r dotenv/config --experimental-specifier-resolution=node --max-old-space-size=8192 db/init.js",
+    "connect:db-debug": "cross-env NODE_ENV=development node -r dotenv/config --experimental-specifier-resolution=node --max-old-space-size=8192 db/init.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "lodash": "^4.17.21",
     "moment": "^2.29.1",
+    "mongoose": "^6.2.3",
     "npm": "^8.5.1",
     "puppeteer": "^13.3.2",
     "puppeteer-extra": "^3.2.3",
