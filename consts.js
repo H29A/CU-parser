@@ -56,4 +56,4 @@ export const REGEX = {
 export const SLEEP_BEFORE_GETTING_CATEGORY_JSON_VALUE = 15000;
 export const WAIT_FOR_RESPONSE_TIMEOUT = 300000;
 
-export const MONGODB_URL = 'mongodb://127.0.0.1:27017/CU-DB';
+export const MONGODB_URL = process.env.CU_DB_HREF;

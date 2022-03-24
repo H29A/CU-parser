@@ -8,10 +8,6 @@ const CategorySchema = new Schema({
     SeName: String,
     Position: Number,
     NameForTracking: String
-});
-
-CategorySchema.add({
-    Categories: [CategorySchema]
-});
+}, { versionKey: false });
 
 export const Category = model('Category', CategorySchema);

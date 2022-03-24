@@ -37,7 +37,7 @@ const writeAnyData = (path, filename, data, charset = DEFAULT_CHARSET) =>  {
     writeFileSyncRecursive(resultPath, filename, data, charset);
 };
 
-const readAnyData = (path, filename, charset = DEFAULT_CHARSET) => {
+const readAnyData = (path, charset = DEFAULT_CHARSET) => {
     logger.debug(`Trying to read ${path} (${charset})`);
 
     try{
@@ -56,7 +56,7 @@ const markProductsFilename = filename => {
     const filenameWithoutExtension = getCleanedName(filename);
     return `${filenameWithoutExtension}-${getDateMark()}.json`;
 }
-export const readProductsData = (path, filename, charset) => readAnyData(path, filename, charset);
+export const readProductsData = (path, charset) => readAnyData(path, charset);
 export const writeProductsData = (path, filename, data, charset) => {
     const markedFileName = markProductsFilename(filename);
     writeAnyData(path, markedFileName, data, charset);
@@ -64,7 +64,7 @@ export const writeProductsData = (path, filename, data, charset) => {
 
 const markCategoryFilename = filename => `${getCleanedName(filename)}.json`;
 export const writeCategoryData = (path, filename, data, charset) => writeAnyData(path, markCategoryFilename(filename), data, charset);
-export const readCategoriesData = (path, filename, charset) => readAnyData(path, filename, charset);
+export const readCategoriesData = (path, charset) => readAnyData(path, charset);
 export const getAllCategoryFilenames = path => readdirSync(path);
 
 export const initializePatchedPage = async browser => {

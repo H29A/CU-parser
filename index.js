@@ -22,7 +22,7 @@ const iterateCategoryFiles = async (categoryFilenamesArray) => {
     for (const filename of categoryFilenamesArray) {
         logger.info(`Parsing file "${filename}" is being processed`);
         const path = resolve(BASE_OUTPUT_PATH.CATEGORIES.RU, filename);
-        const category = readCategoriesData(path, filename);
+        const category = readCategoriesData(path);
         for (const subcategory of category) {
             logger.debug(`Found "${subcategory.Name}", started recursive processing`);
             const categoryOutputPath = getCleanedName(
